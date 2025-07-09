@@ -33,7 +33,7 @@ class Window:
         self.remove_website_button = tk.Button(self.frame,text="Remove Website", width=15,command=self.remove_website)
         self.remove_website_button.pack(side=tk.LEFT,padx=10,expand=True,fill="x")
         
-        self.load_websites_button = tk.Button(self.frame,text="Load Website", width=15, command=self.load_websites)
+        self.load_websites_button = tk.Button(self.frame,text="Load Websites", width=15, command=self.load_websites)
         self.load_websites_button.pack(side=tk.LEFT,padx=10,expand=True,fill="x")
        
         self.scraper_button = tk.Button(self.frame,text="Scrape Websites", width=15,command=self.scrape_website)
@@ -57,11 +57,11 @@ class Window:
     def add_website(self):
         text = self.entry.get().strip()
         if not text:
-           self.display_warning("Unable To Peform Action", "You Cannot Leave Entry Box Empty!")
+           self.display_warning("Unable To Perform Action", "Entry box cannot be empty!")
            return 
        
         if not self.is_valid_url(text):
-            self.display_warning("Unable To Peform Action", "Invalid URL")
+            self.display_warning("Unable To Perform Action", "Invalid URL")
             return
             
             
@@ -73,7 +73,7 @@ class Window:
         selected = self.list_box.curselection()
         
         if not selected:
-            self.display_warning("Unable To Peform Action", "You Must Select Atleast 1 Website To Remove!")
+            self.display_warning("Unable To Perform Action", "You Must Select At Least 1 Website To Remove!")
             return
         
         for i in reversed(selected):
@@ -111,8 +111,9 @@ class Window:
         
         if file:
             for line in file:
-                 self.list_box.insert(tk.END,line.strip())
-                 self.websites.append(line.strip())
+                    if self.is_valid_url(line):
+                        self.list_box.insert(tk.END,line.strip())
+                        self.websites.append(line.strip())
         
             file.close()
             
